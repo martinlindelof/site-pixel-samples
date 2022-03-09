@@ -1,0 +1,885 @@
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	@author Martin Lindelöf
+	@description a bold and beautiful take on studio site.
+
+	using bootstrap for responsive ux
+	with modified screen-large set to 1600px
+	using initializer template
+
+
+ */
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	Helper classes, useful here and there
+
+ */
+
+.no-gutter {
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	background-color: white;
+	box-sizing: border-box;
+}
+
+.position-center {
+	-webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+.non-selectable {
+	user-select: none;
+	pointer-events: none;
+}
+
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	The header part, big jumbotron and the video reel.
+
+ */
+
+html, body {
+	background-color: #fff;
+	padding: 0;
+	margin: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 100%;
+	height: 100%;
+	cursor: wait;
+}
+
+a:link {
+	color: #65c8ef;
+    text-decoration: none;
+    user-select: auto;
+    pointer-events: all;
+    transition: color 0.25s;
+}
+
+a:visited {
+	color: #65c8ef;
+    text-decoration: none;
+    transition: color 0.25s;
+}
+
+a:hover {
+	color: #f5a3d6;
+    text-decoration: blink;
+	transition: color 0.25s;
+	transition: color 0.25s;
+}
+
+a:active {
+    text-decoration: blink;
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: 'Concert One', cursive;
+	font-weight: 300;
+}
+
+p {
+    font-family: 'Concert One', cursive;
+}
+
+hr {
+	height: 1px;
+	border: none;
+	background-color: #d4d3d6;
+}
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	Loading screen
+
+ */
+#loading {
+	transition: opacity 0.35s;
+	transition-delay: 0.65s;
+	width: 100px;
+}
+.loading-done {
+	opacity: 0.0;
+}
+
+@keyframes animation_loading_text {
+	0%, 100% {
+		opacity: 0.1;
+	}
+	50% {
+		opacity: 0.5;
+	}
+}
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	Video player, Jumbotron and the Reel video header
+
+ */
+.jumbotron {
+	padding: 0;
+  	overflow: hidden;
+  	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 100vw;
+	height: 90vh;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto auto;
+	visibility: hidden;
+}
+
+.jumbotron-ready {
+	visibility: visible;
+	animation-name: jumbo_animation;
+	/*animation-timing-function: ease-in-out;*/
+	animation-timing-function: cubic-bezier(0.655, 0.010, 0.405, 1.390);
+	animation-fill-mode: both;
+	animation-duration: 1.8s;
+}
+
+@keyframes jumbo_animation {
+	0%, 50% {
+		position: absolute;
+		opacity: 0.0;
+		width: 5vw;
+		height: 1px;
+	}
+	60% {
+		opacity: 1.0;
+	}
+	75% {
+		width: 100vw;
+		height: 2px;
+	}
+	99% {
+		position: absolute;
+	}
+	100% {
+		width: 100vw;
+		height: 90vh;
+		position: relative;
+	}
+}
+
+/* the reel space, welcome to noga tv! */
+.video-reel {
+	z-index: 1;
+	background-color: black;
+	overflow: hidden;
+}
+
+.vide-player {
+	opacity: 1;
+	transform-origin: 50% 50%;
+}
+
+.vide-player-ready {
+	animation-name: vide_on_animation;
+	animation-duration: 0.45s;
+	animation-delay: 1.35s;
+	animation-fill-mode: both;
+	animation-timing-function: cubic-bezier(0.220, 0.480, 0.675, 1.280);
+}
+
+@keyframes vide_on_animation {
+	0% {
+		transform: scaleY(0.2);
+	}
+	100% {
+		transform: scaleY(1.0);
+	}
+}
+
+/*  logotype   */
+#logo-reel {
+	position: absolute;
+	width: 22.5%;
+	left: 3.6%;
+	bottom: 1.0%;
+	margin: 0;
+	padding: 0;
+	transform-origin: 50% 80%;
+	cursor: grabbing;
+	cursor: -webkit-grabbing;
+}
+
+.logo-ready {
+	animation-name: logo_animation;
+	animation-duration: 0.3s;
+	animation-delay: 1.52s;
+	animation-fill-mode: both;
+	animation-timing-function: ease-out;
+}
+
+@keyframes logo_animation {
+	from {
+		opacity: 0.0;
+	}
+	to {
+		opacity: 1.0;
+	}
+}
+
+/* effect layers */
+.reel-raster {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+    opacity: 0.8;
+	background-repeat: repeat;
+	background-position: center;
+	background-image: url("../img/rasters/raster_3.png");
+}
+
+#screen-led {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	display: block;
+}
+.screen-led-ready {
+	animation-name: led_animation;
+	animation-duration: 0.4s;
+	animation-delay: 1.5s;
+	animation-fill-mode: both;
+}
+
+@keyframes led_animation {
+	0% {
+		opacity: 0.7;
+	}
+	100% {
+		opacity: 0.0;
+	}
+}
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	Container, Content and Footer
+
+ */
+.container-fluid {
+	visibility: hidden;
+	display: none;
+}
+
+.container-ready {
+	visibility: visible;
+	display: block;
+	animation-name: container_animation;
+	animation-duration: 0.35s;
+	animation-delay: 2.0s;
+	animation-fill-mode: both;
+	animation-timing-function: ease-out;
+}
+
+@keyframes container_animation{
+	from {
+		transform: translateY(-20px);
+		opacity: 0.0;
+	}
+	to {
+		transform: translateY(0px);
+		opacity: 1.0;
+	}
+}
+
+footer {
+	margin-top: 20px;
+	color: black;
+}
+
+footer small {
+	font-family: 'Lekton', sans-serif;
+	font-size: 1.15rem;
+	padding-bottom: 20px;
+}
+
+
+
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	The boxes and grid. This is more of the content part of the site.
+
+	also here's a lazy dog for the typography font-faces that are available.
+	just copy and paste the one you wanna try out.
+
+	font-family: 'Concert One', cursive;
+	font-family: 'Lekton', sans-serif;
+	font-family: 'Raleway', sans-serif;
+
+
+ */
+
+.box {
+	width: 100%;
+	/*height: 620px;*/
+	height: 48vh;
+	min-height: 500px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+    overflow: visible;
+}
+
+/*.box-double {
+	height: 46vh;
+	min-height: 580px;
+}*/
+
+.box-half 
+{
+	position: relative;
+	width: 100%;
+	height: 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.box-label 
+{
+	position: absolute;
+	padding-left: 28px;
+	padding-bottom: 20px;
+	bottom: 0px;
+	left: 0px;
+}
+
+.box-label 
+	h2 {
+	font-size: 2.42rem;
+	font-style: normal;
+	font-weight: 400;
+	margin-bottom: 10px;
+	letter-spacing: -0.10rem;
+} 
+.box-label 
+	p {
+	font-family: 'Lekton', sans-serif;
+	font-size: 1.24rem;
+	letter-spacing: -0.5px;
+	font-weight: 400;
+	margin: 2px 0 0 2px;
+}
+
+
+
+
+
+
+
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	Typographic colors, slightly off
+
+ */
+
+.off-white p,
+.off-white small,
+.off-white h1,
+.off-white h2,
+.off-white h3,
+.off-white h4,
+.off-white h5,
+.off-white h6
+{
+	color: #bfb6ad;
+}
+
+.off-black p,
+.off-black small,
+.off-black h1,
+.off-black h2,
+.off-black h3,
+.off-black h4,
+.off-black h5,
+.off-black h6
+{
+	color: #282A36;
+}
+
+.off-gray p,
+.off-gray small,
+.off-gray h1,
+.off-gray h2,
+.off-gray h3,
+.off-gray h4,
+.off-gray h5,
+.off-gray h6
+{
+	color: #54525d;
+}
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	A title box, good for project titles on sub-pages.
+
+ */
+
+.box-title {
+	width: 100%;
+	border: none;
+	-webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+	top: 48% !important;
+}
+
+.box-title h1, 
+.box-title h2,
+.box-title h3,
+.box-title h4,
+.box-title h5 {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 2.2rem;
+	letter-spacing: -0.11rem;
+}
+
+.box-title 
+	p {
+	font-family: 'Lekton', sans-serif;
+	font-weight: 300;
+	width: 100%;
+	text-align: center;
+}
+
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	A generic text box, left aligned. Good for general copy.
+
+ */
+
+.box-text {
+    position: absolute;
+    left: 50%;
+	top: 48% !important;
+	width: 100%;
+	padding: 0 15% 0 12%;
+	-webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.box-text h1,
+.box-text h2,
+.box-text h3,
+.box-text h4
+{
+	font-weight: 300;
+	letter-spacing: -0.12rem;
+	margin-left: -2px;
+}
+
+.box-text 
+	p {
+	/*font-family: 'Raleway', sans-serif;*/
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 300;
+	font-size: 1.61rem;
+	text-align: justify;
+}
+
+.highlighted {
+	background-color: #fff4a8;
+	padding: 3px 5px;
+}
+
+/*cite {
+	background-color: #c2f0f9;
+	padding: 3px 5px;
+}*/
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	A quote box, does what it say.
+
+ */
+.box blockquote {
+    left: 50%;
+	top: 52% !important;
+    width: 100%;
+    padding: 0 18% 0 16%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+	margin-left: 3px;
+	border: none;
+}
+
+.box blockquote p {
+	font-family: 'Raleway', sans-serif;
+	font-size: 1.94rem;
+	font-style: italic;
+	font-weight: 300;
+	text-align: justify;
+}
+
+.box blockquote footer, cite {
+	font-family: 'Lekton', sans-serif;
+	text-align: right;
+}
+
+.box blockquote footer {
+	margin-right: 18px;
+	margin-top: 2rem;
+	background-color: none;
+	/*color: #36353c;*/
+	color: #54525d;
+}
+
+
+
+
+
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	General media queries and break points based on the design.
+
+ */
+
+@media only screen 
+	and (max-width: 1024px) {
+		#logo-reel {
+			width: 42%;
+		}
+		.box {
+			height: 32vh;
+		}
+}
+
+
+@media screen and (min-width: 1200px) {
+
+
+
+}
+
+@media screen and (min-width: 1600px) {
+
+
+	.box {
+		/*height: 540px;*/
+		height: 48vh;
+	}
+
+
+} 
+
+
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	Here follows media queries and break points based of devices!
+	You can read more about the template I used here >
+	https://css-tricks.com/snippets/css/media-queries-for-standard-devices/
+
+ */
+
+
+
+
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	iPads
+
+ */
+
+/* ----------- iPad mini ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+	
+	.video-reel {
+		/*height: 100vh;*/
+	}
+
+	
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+  	.video-reel {
+  		/*height: 100vh;*/
+  	}
+
+}
+
+/* ----------- iPad 1 and 2 ----------- */
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+	
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+  	.video-reel {
+		/*height: 100vh;*/
+	}
+
+
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+  	.video-reel {
+		/*height: 100vh;*/
+	}
+
+}
+
+/* ----------- iPad 3 and 4 ----------- */
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: portrait) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+  	.video-reel {
+		/*height: 100vh;*/
+	}
+
+
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+  	.video-reel {
+		/*height: 100vh;*/
+	}
+
+
+
+}
+
+/*  ----------------------------------------------------------------------------
+	////////////////////////////////////////////////////////////////////////////
+
+	iPhones
+
+ */
+
+/* ----------- iPhone 4 and 4S ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+
+}
+
+/* ----------- iPhone 5 and 5S ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+
+}
+
+/* ----------- iPhone 6 ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+
+  	.video-reel {
+		/*height: 100vh;*/
+	}
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) { 
+
+  	.video-reel {
+		/*height: 100vh;*/
+	}
+
+}
+
+/* ----------- iPhone 6+ ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) {
+
+  	.video-reel {
+		/*height: 100vh;*/
+	}
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+
+  	.video-reel {
+		/*height: 100vh;*/
+	}
+
+
+
+}
+
+
+
+
+
+
+
+
+
